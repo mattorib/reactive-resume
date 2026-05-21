@@ -91,6 +91,30 @@ describe("basicsSchema", () => {
 		});
 		expect(result.success).toBe(true);
 	});
+
+	it("defaults furigana to empty string when field is absent", () => {
+		const result = basicsSchema.safeParse(defaultResumeData.basics);
+		expect(result.success).toBe(true);
+		if (result.success) expect(result.data.furigana).toBe("");
+	});
+
+	it("accepts a non-empty furigana string", () => {
+		const result = basicsSchema.safeParse({
+			...defaultResumeData.basics,
+			furigana: "やまだ たろう",
+		});
+		expect(result.success).toBe(true);
+		if (result.success) expect(result.data.furigana).toBe("やまだ たろう");
+	});
+
+	it("defaults furigana to empty string when field is missing from input", () => {
+		const withoutFurigana = { ...defaultResumeData.basics };
+		// @ts-expect-error intentionally testing parse-time default
+		delete withoutFurigana.furigana;
+		const result = basicsSchema.safeParse(withoutFurigana);
+		expect(result.success).toBe(true);
+		if (result.success) expect(result.data.furigana).toBe("");
+	});
 });
 
 describe("customFieldSchema", () => {

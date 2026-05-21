@@ -84,6 +84,10 @@ export const customFieldSchema = z.object({
 
 export const basicsSchema = z.object({
 	name: z.string().describe("The full name of the author of the resume."),
+	furigana: z
+		.string()
+		.describe("Furigana (phonetic reading) for the author's name, displayed above the name in smaller text.")
+		.catch(""),
 	headline: z.string().describe("The headline of the author of the resume."),
 	email: z.string().describe("The email address of the author of the resume."),
 	phone: z.string().describe("The phone number of the author of the resume."),
