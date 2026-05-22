@@ -186,6 +186,7 @@ export class JSONResumeImporter {
 			const basics = jsonResume.basics;
 			result.basics = {
 				name: basics.name || "",
+				furigana: "",
 				headline: basics.label || "",
 				email: basics.email || "",
 				phone: basics.phone || "",
