@@ -9,9 +9,10 @@ import { CustomFieldContactItem, WebsiteContactItem } from "../shared/contact-it
 import { TemplateProvider } from "../shared/context";
 import { filterSections } from "../shared/filtering";
 import { getTemplateMetrics } from "../shared/metrics";
+import { NameWithFurigana } from "../shared/name-with-furigana";
 import { getTemplatePageMinHeightStyle, getTemplatePageSize } from "../shared/page-size";
 import { hasTemplatePicture } from "../shared/picture";
-import { Heading, Icon, Link, Text } from "../shared/primitives";
+import { Icon, Link, Text } from "../shared/primitives";
 import { Section } from "../shared/sections";
 import { composeStyles, headerNameLineHeight } from "../shared/styles";
 
@@ -77,7 +78,7 @@ const Header = ({ styles }: { styles: KakunaStyles }) => {
 
 			<View style={styles.headerTitle}>
 				<View style={styles.headerCopy}>
-					<Heading style={styles.headerName}>{basics.name}</Heading>
+					<NameWithFurigana nameStyle={styles.headerName} />
 					<Text style={styles.headerText}>{basics.headline}</Text>
 				</View>
 
