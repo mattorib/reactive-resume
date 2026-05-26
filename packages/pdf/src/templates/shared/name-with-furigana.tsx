@@ -10,7 +10,7 @@ export const NameWithFurigana = ({ nameStyle }: Props) => {
 
 	return (
 		<View style={{ flexDirection: "column" }}>
-			{basics.furigana && <Text style={{ fontSize: 9, letterSpacing: 1, opacity: 0.7 }}>{basics.furigana}</Text>}
+			{basics.furigana && <Text style={{ fontSize: 9, opacity: 0.7 }}>{basics.furigana}</Text>}
 			<Heading {...(nameStyle !== undefined ? { style: nameStyle } : {})}>{basics.name}</Heading>
 		</View>
 	);
