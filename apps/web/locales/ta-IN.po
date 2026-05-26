@@ -1589,6 +1589,10 @@ msgstr "முழுத்திரை"
 msgid "Fullscreen Editor"
 msgstr "முழுத்திரை ஆசிரியர்"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "ஒரு சீரற்ற பெயரை உருவாக்கு"
@@ -3959,4 +3963,3 @@ msgstr "சிறிதாக்கு"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "ஜூலு"
-

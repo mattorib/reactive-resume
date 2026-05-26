@@ -1589,6 +1589,10 @@ msgstr "Pantalla completa"
 msgid "Fullscreen Editor"
 msgstr "Editor a pantalla completa"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "Generar un nombre aleatorio"
@@ -3959,4 +3963,3 @@ msgstr "Alejar"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "Zulú"
-

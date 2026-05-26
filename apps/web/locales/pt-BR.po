@@ -1589,6 +1589,10 @@ msgstr "Tela cheia"
 msgid "Fullscreen Editor"
 msgstr "Editor de tela cheia"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "Gerar um nome aleatório"
@@ -3959,4 +3963,3 @@ msgstr "Diminuir zoom"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
-

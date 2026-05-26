@@ -1589,6 +1589,10 @@ msgstr "పూర్తి స్క్రీన్"
 msgid "Fullscreen Editor"
 msgstr "పూర్తిస్క్రీన్ ఎడిటర్"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "యాదృచ్ఛిక పేరు రూపొందించండి"
@@ -3959,4 +3963,3 @@ msgstr "జూమ్ అవుట్ చేయండి"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "జులు"
-

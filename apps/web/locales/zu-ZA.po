@@ -1584,6 +1584,10 @@ msgstr ""
 msgid "Fullscreen Editor"
 msgstr ""
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr ""

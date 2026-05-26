@@ -1589,6 +1589,10 @@ msgstr "전체 화면"
 msgid "Fullscreen Editor"
 msgstr "전체 화면 편집기"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "무작위 이름 생성"
@@ -3959,4 +3963,3 @@ msgstr "축소"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "줄루어"
-

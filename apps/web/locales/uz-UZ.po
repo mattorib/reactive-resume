@@ -1589,6 +1589,10 @@ msgstr "Toʻliq ekran"
 msgid "Fullscreen Editor"
 msgstr "To'liq ekranli muharrir"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "Tasodifiy ism yaratish"
@@ -3959,4 +3963,3 @@ msgstr "Kichraytirish"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
-

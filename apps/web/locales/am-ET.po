@@ -1589,6 +1589,10 @@ msgstr "ሙሉ ስክሪን"
 msgid "Fullscreen Editor"
 msgstr "ሙሉ ማያ ገጽ አርታዒ"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "የተዘፈነ ስም ይፍጠሩ"
@@ -3959,4 +3963,3 @@ msgstr "አጉር"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "ዙሉ"
-

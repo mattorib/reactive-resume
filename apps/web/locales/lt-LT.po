@@ -1589,6 +1589,10 @@ msgstr "Visas ekranas"
 msgid "Fullscreen Editor"
 msgstr "Viso ekrano redaktorius"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "Sugeneruoti atsitiktinį pavadinimą"
@@ -3959,4 +3963,3 @@ msgstr "Tolinti"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "Zulų"
-
