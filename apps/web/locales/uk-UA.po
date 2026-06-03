@@ -1589,6 +1589,10 @@ msgstr "Повноекранний режим"
 msgid "Fullscreen Editor"
 msgstr "Повноекранний редактор"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "Згенерувати випадкове ім'я"
@@ -3959,4 +3963,3 @@ msgstr "Зменшити"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "Зулу"
-

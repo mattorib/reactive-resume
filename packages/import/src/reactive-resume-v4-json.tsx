@@ -423,6 +423,7 @@ export class ReactiveResumeV4JSONImporter {
 				},
 				basics: {
 					name: v4Data.basics.name ?? "",
+					furigana: "",
 					headline: v4Data.basics.headline ?? "",
 					email: sanitizeEmail(v4Data.basics.email),
 					phone: v4Data.basics.phone ?? "",

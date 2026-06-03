@@ -1589,6 +1589,10 @@ msgstr "Pilnekrāns"
 msgid "Fullscreen Editor"
 msgstr "Pilnekrāna ekrāna redaktors"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "Ģenerēt nejaušu nosaukumu"
@@ -3959,4 +3963,3 @@ msgstr "Tālināt"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
-

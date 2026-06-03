@@ -1589,6 +1589,10 @@ msgstr "Teljes képernyő"
 msgid "Fullscreen Editor"
 msgstr "Teljes képernyős szerkesztő"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "Véletlenszerű név generálása"
@@ -3959,4 +3963,3 @@ msgstr "Kicsinyítés"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
-

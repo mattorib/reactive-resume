@@ -50,6 +50,30 @@ function BasicsSectionForm() {
 				void form.handleSubmit();
 			}}
 		>
+			<form.Field name="furigana">
+				{(field) => (
+					<FormItem hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}>
+						<FormLabel>
+							<Trans>Furigana</Trans>
+						</FormLabel>
+						<FormControl
+							render={
+								<Input
+									name={field.name}
+									value={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(e) => {
+										field.handleChange(e.target.value);
+										void form.handleSubmit();
+									}}
+								/>
+							}
+						/>
+						<FormMessage errors={field.state.meta.errors} />
+					</FormItem>
+				)}
+			</form.Field>
+
 			<form.Field name="name">
 				{(field) => (
 					<FormItem hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}>

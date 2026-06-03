@@ -1589,6 +1589,10 @@ msgstr "Πλήρης οθόνη"
 msgid "Fullscreen Editor"
 msgstr "Επεξεργαστής πλήρους οθόνης"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "Δημιουργία τυχαίου ονόματος"
@@ -3959,4 +3963,3 @@ msgstr "Σμίκρυνση"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "Ζουλού"
-

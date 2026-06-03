@@ -18,6 +18,7 @@ type CustomField = FormValues["customFields"][number];
 
 const defaultValues: FormValues = {
 	name: "",
+	furigana: "",
 	headline: "",
 	email: "",
 	phone: "",

@@ -11,6 +11,7 @@ import { match } from "ts-pattern";
 import { db } from "@reactive-resume/db/client";
 import * as schema from "@reactive-resume/db/schema";
 import { applyResumePatches, ResumePatchError } from "@reactive-resume/resume/patch";
+import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import { generateId } from "@reactive-resume/utils/string";
 import { getStorageService } from "../storage/service";
@@ -47,7 +48,7 @@ async function applyResumePatchTx(
 	let patchedData: ResumeData;
 
 	try {
-		patchedData = applyResumePatches(existing.data, input.operations);
+		patchedData = applyResumePatches(resumeDataSchema.parse(existing.data), input.operations);
 	} catch (error) {
 		if (error instanceof ResumePatchError) {
 			throw new ORPCError("INVALID_PATCH_OPERATIONS", {

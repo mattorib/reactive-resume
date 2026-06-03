@@ -15,6 +15,7 @@ export const defaultResumeData: ResumeData = {
 	},
 	basics: {
 		name: "",
+		furigana: "",
 		headline: "",
 		email: "",
 		phone: "",

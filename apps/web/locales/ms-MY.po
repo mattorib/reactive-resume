@@ -1589,6 +1589,10 @@ msgstr "Skrin Penuh"
 msgid "Fullscreen Editor"
 msgstr "Penyunting Skrin Penuh"
 
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+msgid "Furigana"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "Jana nama rawak"
@@ -3959,4 +3963,3 @@ msgstr "Zum keluar"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
-
