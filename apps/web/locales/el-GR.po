@@ -8,7 +8,7 @@ msgstr ""
 "Language: el\n"
 "Project-Id-Version: reactive-resume\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-21 07:54\n"
+"PO-Revision-Date: 2026-06-01 13:31\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -373,6 +373,10 @@ msgstr "Εφαρμογή"
 msgid "Application Statistics"
 msgstr "Στατιστικά εφαρμογής"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "Applied Rules"
+msgstr "Εφαρμοσμένοι κανόνες"
+
 #: src/libs/locale.ts
 msgid "Arabic"
 msgstr "Αραβικά"
@@ -650,6 +654,7 @@ msgid "Choose a model and resume draft."
 msgstr "Επιλέξτε ένα μοντέλο και γράψτε το βιογραφικό σας ως προσχέδιο."
 
 #. Preset or custom shade refer to the color picker
+#. Preset or custom shade refer to the color picker
 #: src/components/input/rich-input.tsx
 msgid "Choose a preset or custom shade."
 msgstr "Επιλέξτε μια προκαθορισμένη ή προσαρμοσμένη απόχρωση."
@@ -666,10 +671,15 @@ msgstr "Επιλέξτε μια υπάρχουσα συζήτηση από τη�
 msgid "Circle"
 msgstr "Κύκλος"
 
+#. Clear the highlight color
 #. Clear the text color
 #: src/components/input/rich-input.tsx
 msgid "Clear"
 msgstr "Σαφής"
+
+#: src/components/ui/combobox.tsx
+msgid "Clear selection"
+msgstr "Εκκαθάριση επιλογής"
 
 #: src/dialogs/resume/import.tsx
 msgid "Click here to select a file to import"
@@ -952,6 +962,10 @@ msgstr "Προσαρμοσμένο OAuth"
 #: src/libs/resume/section.tsx
 msgid "Custom Sections"
 msgstr "Προσαρμοσμένες ενότητες"
+
+#: src/libs/resume/section.tsx
+msgid "Custom Styles"
+msgstr "Προσαρμοσμένα στυλ"
 
 #: src/libs/locale.ts
 msgid "Czech"
@@ -1737,8 +1751,12 @@ msgid "Hide"
 msgstr "Απόκρυψη"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-msgid "Hide all icons on the resume"
-msgstr "Απόκρυψη όλων των εικονιδίων στο βιογραφικό σημείωμα"
+msgid "Hide Icons"
+msgstr "Απόκρυψη εικονιδίων"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgid "Hide Link Underline"
+msgstr "Απόκρυψη υπογράμμισης συνδέσμου"
 
 #. Accessible label for button that hides password in registration form
 #. Accessible label for button that hides password in reset-password form
@@ -1758,6 +1776,10 @@ msgstr "Απόκρυψη όλων των εικονιδίων στο βιογρ�
 msgid "Hide password"
 msgstr "Απόκρυψη κωδικού πρόσβασης"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgid "Hide Section Icons"
+msgstr "Απόκρυψη εικονιδίων ενότητας"
+
 #. Impact severity label in resume analysis suggestion card
 #: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
 msgid "High"
@@ -1766,6 +1788,10 @@ msgstr "Υψηλή"
 #: src/components/input/rich-input.tsx
 msgid "Highlight"
 msgstr "Επισήμανση"
+
+#: src/components/input/rich-input.tsx
+msgid "Highlight Color"
+msgstr "Χρώμα επισήμανσης"
 
 #: src/libs/locale.ts
 msgid "Hindi"
@@ -2251,6 +2277,10 @@ msgstr "Δεν έχουν καταχωρηθεί ακόμη passkeys."
 msgid "No results found."
 msgstr "Δεν βρέθηκαν αποτελέσματα."
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "No style rules yet."
+msgstr "Δεν υπάρχουν ακόμα κανόνες στυλ."
+
 #: src/features/settings/integrations/components/ai-section.tsx
 msgid "No tested provider"
 msgstr "Δεν υπάρχει δοκιμασμένος πάροχος"
@@ -2718,6 +2748,10 @@ msgstr "Επαναφορά"
 msgid "Reset Password"
 msgstr "Επαναφορά κωδικού πρόσβασης"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "Reset Style"
+msgstr "Επαναφορά στυλ"
+
 #: src/features/auth/pages/reset-password.tsx
 msgid "Reset your password"
 msgstr "Επαναφορά κωδικού πρόσβασης"
@@ -2793,6 +2827,14 @@ msgstr "Ρουμανικά"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Rotation"
 msgstr "Περιστροφή"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "rule"
+msgstr "κανόνας"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "rules"
+msgstr "κανόνες"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
 msgid "Run your first analysis to get a scorecard, strengths, and prioritized suggestions."
@@ -3711,6 +3753,10 @@ msgstr "Ενημέρωση του κωδικού πρόσβασής σας..."
 #: src/dialogs/resume/index.tsx
 msgid "Updating your resume..."
 msgstr "Ενημέρωση του βιογραφικού σας σημειώματος..."
+
+#: src/routes/agent/$threadId.tsx
+msgid "Upload attachments"
+msgstr "Μεταφόρτωση συνημμένων"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Upload picture"

@@ -23,11 +23,14 @@ import { Children, createContext, isValidElement, use } from "react";
 import { match } from "ts-pattern";
 import { useRender } from "../../context";
 import { View } from "../../renderer";
+import { getResumeSectionIcon } from "../../section-icon";
 import { getResumeSectionTitle } from "../../section-title";
 import { getSectionItemRows, getSectionItemsLayout, shouldUseSectionTimeline } from "./columns";
 import { getWebsiteDisplayText } from "./contact";
 import {
+	SectionStyleProvider,
 	TemplatePlacementProvider,
+	useSectionStyleRule,
 	useTemplateFeature,
 	useTemplateFeatureStyle,
 	useTemplatePlacement,
@@ -36,15 +39,88 @@ import {
 import { filterItems, hasVisibleItems, isSectionVisible, isVisibleSummary } from "./filtering";
 import { LevelDisplay } from "./level-display";
 import { getTemplateMetrics } from "./metrics";
-import { Bold, Div, Heading, Icon, Link, Small, Text } from "./primitives";
+import { Bold, Div, Heading, Icon, Link, SectionHeadingIcon, Small, Text } from "./primitives";
 import { RichText } from "./rich-text";
+import { createRtlStyleHelpers } from "./rtl";
 import { getInlineItemWebsiteUrl, shouldRenderSeparateItemWebsite } from "./section-links";
 import { hasSplitRowText, promoteSplitRowRight } from "./split-row";
+import { getSectionStyleRuleContext } from "./style-rules";
 import { composeStyles } from "./styles";
 
 type SectionItemsContextValue = {
 	itemStyle: StyleInput;
 	useTimeline: boolean;
+};
+
+type SectionShellProps = {
+	sectionId: string;
+	title: string;
+	showHeading?: boolean;
+	children: ReactNode;
+};
+
+type SectionItemsProps = {
+	children: ReactNode;
+	columns?: number;
+};
+
+type SectionItemProps = {
+	children: ReactNode;
+	style?: StyleInput;
+};
+
+type InlineItemHeaderProps = {
+	leading?: ReactNode;
+	middle?: ReactNode;
+	trailing?: ReactNode;
+};
+
+type SectionItemHeaderProps = {
+	children: ReactNode;
+};
+
+type ItemWebsite = {
+	url: string;
+	label: string;
+	inlineLink?: boolean | undefined;
+};
+
+type ItemTitleProps = {
+	children: ReactNode;
+	website: ItemWebsite;
+};
+
+type ItemWebsiteLinkProps = {
+	website: ItemWebsite;
+};
+
+type SummarySectionProps = {
+	showHeading?: boolean;
+};
+
+type CustomSummarySectionProps = {
+	section: CustomItemSection<SummaryItem>;
+	showHeading?: boolean;
+};
+
+type ItemSectionProps<T> = {
+	sectionId?: string;
+	sectionData?: ItemSection<T>;
+};
+
+type CoverLetterSectionProps = {
+	section: CustomItemSection<CoverLetterItem>;
+};
+
+type CustomSectionProps = {
+	sectionId: string;
+	showHeading?: boolean;
+};
+
+type SectionProps = {
+	section: string;
+	placement: TemplatePlacement;
+	showHeading?: boolean;
 };
 
 const SectionItemsContext = createContext<SectionItemsContextValue>({ itemStyle: undefined, useTimeline: false });
@@ -56,6 +132,35 @@ const SECTION_ITEM_PLACEHOLDER_KEYS = [
 	"placeholder-5",
 	"placeholder-6",
 ] as const;
+
+const defaultSectionHeadingContainerStyle = {
+	flexDirection: "row",
+	alignItems: "flex-start",
+	columnGap: 4,
+} satisfies Style;
+
+const getSectionHeadingTextStyle = (...styles: StyleInput[]): Style[] =>
+	composeStyles(...styles).map(
+		({
+			borderBottomWidth: _borderBottomWidth,
+			borderLeftWidth: _borderLeftWidth,
+			borderRightWidth: _borderRightWidth,
+			borderTopWidth: _borderTopWidth,
+			borderWidth: _borderWidth,
+			flexGrow: _flexGrow,
+			flexShrink: _flexShrink,
+			marginBottom: _marginBottom,
+			marginLeft: _marginLeft,
+			marginRight: _marginRight,
+			marginTop: _marginTop,
+			paddingBottom: _paddingBottom,
+			paddingLeft: _paddingLeft,
+			paddingRight: _paddingRight,
+			paddingTop: _paddingTop,
+			width: _width,
+			...textStyle
+		}) => textStyle,
+	);
 
 const useSectionItemsContext = () => use(SectionItemsContext);
 
@@ -74,31 +179,53 @@ const getVisibleItems = <T extends { hidden: boolean }>(section: ItemSection<T>,
 	return filterItems(section.items, sectionType);
 };
 
-const SectionShell = ({
-	sectionId,
-	title,
-	showHeading = true,
-	children,
-}: {
-	sectionId: string;
-	title: string;
-	showHeading?: boolean;
-	children: ReactNode;
-}) => {
+const SectionShell = ({ sectionId, title, showHeading = true, children }: SectionShellProps) => {
 	const data = useRender();
 	const sectionStyle = useTemplateStyle("section");
+	const sectionRuleStyle = useSectionStyleRule("section");
 	const sectionHeadingStyle = useTemplateStyle("sectionHeading");
+	const sectionHeadingContainerStyle = useTemplateStyle("sectionHeadingContainer");
+	const sectionHeadingRuleStyle = useSectionStyleRule("heading");
 	const sectionTitle = getResumeSectionTitle(data, sectionId, title);
+	const sectionIcon = getResumeSectionIcon(data, sectionId);
+	const showIcon = Boolean(sectionIcon) && !data.metadata.page.hideSectionIcons;
 
+	if (!showIcon) {
+		// No icon: render heading exactly as before (no structural change)
+		return (
+			<View style={composeStyles(sectionStyle, sectionRuleStyle)}>
+				{showHeading && (
+					<Heading style={composeStyles(sectionHeadingStyle, sectionHeadingRuleStyle)}>{sectionTitle}</Heading>
+				)}
+				{children}
+			</View>
+		);
+	}
+
+	// With icon: wrap in a flex row container that inherits the heading's border/decoration
 	return (
-		<View style={composeStyles(sectionStyle)}>
-			{showHeading && <Heading style={composeStyles(sectionHeadingStyle)}>{sectionTitle}</Heading>}
+		<View style={composeStyles(sectionStyle, sectionRuleStyle)}>
+			{showHeading && (
+				<View
+					style={composeStyles(
+						sectionHeadingStyle,
+						defaultSectionHeadingContainerStyle,
+						sectionHeadingContainerStyle,
+						sectionHeadingRuleStyle,
+					)}
+				>
+					<SectionHeadingIcon name={sectionIcon as IconName} />
+					<Heading style={getSectionHeadingTextStyle(sectionHeadingStyle, sectionHeadingRuleStyle)}>
+						{sectionTitle}
+					</Heading>
+				</View>
+			)}
 			{children}
 		</View>
 	);
 };
 
-const SectionItems = ({ children, columns = 1 }: { children: ReactNode; columns?: number }) => {
+const SectionItems = ({ children, columns = 1 }: SectionItemsProps) => {
 	const data = useRender();
 	const placement = useTemplatePlacement();
 	const sectionTimeline = useTemplateFeature("sectionTimeline");
@@ -117,6 +244,7 @@ const SectionItems = ({ children, columns = 1 }: { children: ReactNode; columns?
 		columns: layout.columns,
 	});
 	const context = { itemStyle: layout.itemStyle, useTimeline };
+	const rtlRowStyle = createRtlStyleHelpers(data.rtl).gridRowStyle;
 
 	if (!useTimeline) {
 		if (layout.isGrid) {
@@ -126,7 +254,7 @@ const SectionItems = ({ children, columns = 1 }: { children: ReactNode; columns?
 				<SectionItemsContext.Provider value={context}>
 					<View style={composeStyles(layout.containerStyle, sectionItemsStyle)}>
 						{rows.map((row, rowIndex) => (
-							<View key={getRowKey(row, rowIndex)} style={composeStyles(layout.rowStyle)}>
+							<View key={getRowKey(row, rowIndex)} style={composeStyles(layout.rowStyle, rtlRowStyle)}>
 								{row}
 								{SECTION_ITEM_PLACEHOLDER_KEYS.slice(0, layout.columns - row.length).map((placeholderKey) => (
 									<View key={placeholderKey} style={composeStyles(layout.itemStyle)} />
@@ -155,16 +283,17 @@ const SectionItems = ({ children, columns = 1 }: { children: ReactNode; columns?
 	);
 };
 
-const SectionItem = ({ children, style }: { children: ReactNode; style?: StyleInput }) => {
+const SectionItem = ({ children, style }: SectionItemProps) => {
 	const { itemStyle: sectionItemStyle, useTimeline } = useSectionItemsContext();
 	const itemStyle = useTemplateStyle("item");
+	const itemRuleStyle = useSectionStyleRule("item");
 	const timelineItemStyle = useTemplateFeatureStyle("sectionTimeline", "item");
 	const timelineMarkerStyle = useTemplateFeatureStyle("sectionTimeline", "marker");
 	const timelineDotStyle = useTemplateFeatureStyle("sectionTimeline", "dot");
 	const timelineContentStyle = useTemplateFeatureStyle("sectionTimeline", "content");
 
 	if (!useTimeline) {
-		return <Div style={composeStyles(itemStyle, sectionItemStyle, style)}>{children}</Div>;
+		return <Div style={composeStyles(itemStyle, itemRuleStyle, sectionItemStyle, style)}>{children}</Div>;
 	}
 
 	return (
@@ -172,20 +301,12 @@ const SectionItem = ({ children, style }: { children: ReactNode; style?: StyleIn
 			<View style={composeStyles(timelineMarkerStyle)}>
 				<View style={composeStyles(timelineDotStyle)} />
 			</View>
-			<Div style={composeStyles(itemStyle, timelineContentStyle, style)}>{children}</Div>
+			<Div style={composeStyles(itemStyle, itemRuleStyle, timelineContentStyle, style)}>{children}</Div>
 		</View>
 	);
 };
 
-const InlineItemHeader = ({
-	leading,
-	middle,
-	trailing,
-}: {
-	leading?: ReactNode;
-	middle?: ReactNode;
-	trailing?: ReactNode;
-}) => {
+const InlineItemHeader = ({ leading, middle, trailing }: InlineItemHeaderProps) => {
 	const inlineItemHeaderStyle = useTemplateStyle("inlineItemHeader");
 	const leadingStyle = useTemplateStyle("inlineItemHeaderLeading");
 	const middleStyle = useTemplateStyle("inlineItemHeaderMiddle");
@@ -222,7 +343,7 @@ const useSectionSplitRowStyle = () => {
 	);
 };
 
-const SectionItemHeader = ({ children }: { children: ReactNode }) => {
+const SectionItemHeader = ({ children }: SectionItemHeaderProps) => {
 	const mainItemHeaderBorder = useTemplateFeature("mainItemHeaderBorder");
 	const sectionItemHeaderStyle = useTemplateStyle("sectionItemHeader");
 
@@ -231,13 +352,7 @@ const SectionItemHeader = ({ children }: { children: ReactNode }) => {
 	return <View style={composeStyles(sectionItemHeaderStyle)}>{children}</View>;
 };
 
-type ItemWebsite = {
-	url: string;
-	label: string;
-	inlineLink?: boolean | undefined;
-};
-
-const ItemTitle = ({ children, website }: { children: ReactNode; website: ItemWebsite }) => {
+const ItemTitle = ({ children, website }: ItemTitleProps) => {
 	const inlineWebsiteUrl = getInlineItemWebsiteUrl(website);
 	const title = <Bold>{children}</Bold>;
 
@@ -246,13 +361,13 @@ const ItemTitle = ({ children, website }: { children: ReactNode; website: ItemWe
 	return <Link src={inlineWebsiteUrl}>{title}</Link>;
 };
 
-const ItemWebsiteLink = ({ website }: { website: ItemWebsite }) => {
+const ItemWebsiteLink = ({ website }: ItemWebsiteLinkProps) => {
 	if (!shouldRenderSeparateItemWebsite(website)) return null;
 
 	return <Link src={website.url}>{getWebsiteDisplayText(website)}</Link>;
 };
 
-const SummarySection = ({ showHeading = true }: { showHeading?: boolean } = {}) => {
+const SummarySection = ({ showHeading = true }: SummarySectionProps = {}) => {
 	const data = useRender();
 	const { summary } = data;
 
@@ -269,13 +384,7 @@ const SummarySection = ({ showHeading = true }: { showHeading?: boolean } = {}) 
 	);
 };
 
-const CustomSummarySection = ({
-	section,
-	showHeading = true,
-}: {
-	section: CustomItemSection<SummaryItem>;
-	showHeading?: boolean;
-}) => {
+const CustomSummarySection = ({ section, showHeading = true }: CustomSummarySectionProps) => {
 	const items = getVisibleItems(section);
 
 	if (items.length === 0) return null;
@@ -293,13 +402,7 @@ const CustomSummarySection = ({
 	);
 };
 
-const ProfileSection = ({
-	sectionId = "profiles",
-	sectionData,
-}: {
-	sectionId?: string;
-	sectionData?: ItemSection<ProfileItem>;
-} = {}) => {
+const ProfileSection = ({ sectionId = "profiles", sectionData }: ItemSectionProps<ProfileItem> = {}) => {
 	const data = useRender();
 	const profiles = sectionData ?? data.sections.profiles;
 	const items = getVisibleItems(profiles, "profiles");
@@ -326,18 +429,12 @@ const ProfileSection = ({
 	);
 };
 
-const ExperienceSection = ({
-	sectionId = "experience",
-	sectionData,
-}: {
-	sectionId?: string;
-	sectionData?: ItemSection<ExperienceItem>;
-} = {}) => {
+const ExperienceSection = ({ sectionId = "experience", sectionData }: ItemSectionProps<ExperienceItem> = {}) => {
 	const data = useRender();
 	const experience = sectionData ?? data.sections.experience;
 	const items = getVisibleItems(experience, "experience");
 	const splitRowStyle = useSectionSplitRowStyle();
-	const alignRightStyle = useTemplateStyle("alignRight");
+	const alignEndStyle = useTemplateStyle("alignEnd");
 	const inlineItemHeader = useTemplateFeature("inlineItemHeader");
 
 	if (items.length === 0) return null;
@@ -365,7 +462,7 @@ const ExperienceSection = ({
 								) : null
 							}
 							middle={<ItemTitle website={item.website}>{item.company}</ItemTitle>}
-							trailing={<Text style={composeStyles(alignRightStyle)}>{item.period}</Text>}
+							trailing={<Text style={composeStyles(alignEndStyle)}>{item.period}</Text>}
 						/>
 					);
 
@@ -373,15 +470,13 @@ const ExperienceSection = ({
 						<>
 							<View style={composeStyles(splitRowStyle)}>
 								<ItemTitle website={item.website}>{item.company}</ItemTitle>
-								{hasSplitRowText(headerLocation) && (
-									<Text style={composeStyles(alignRightStyle)}>{headerLocation}</Text>
-								)}
+								{hasSplitRowText(headerLocation) && <Text style={composeStyles(alignEndStyle)}>{headerLocation}</Text>}
 							</View>
 
-							{item.roles.length === 0 && (hasPosition || hasSplitRowText(headerPeriod)) && (
+							{(hasPosition || hasSplitRowText(headerPeriod)) && (
 								<View style={composeStyles(splitRowStyle)}>
 									{hasPosition && <Text>{item.position}</Text>}
-									{hasSplitRowText(headerPeriod) && <Text style={composeStyles(alignRightStyle)}>{headerPeriod}</Text>}
+									{hasSplitRowText(headerPeriod) && <Text style={composeStyles(alignEndStyle)}>{headerPeriod}</Text>}
 								</View>
 							)}
 						</>
@@ -391,13 +486,11 @@ const ExperienceSection = ({
 						<SectionItem key={item.id}>
 							<SectionItemHeader>{inlineItemHeader ? renderInlineHeader() : renderSplitHeader()}</SectionItemHeader>
 
-							{item.roles.length > 0 && <Text>{item.period}</Text>}
-
 							{item.roles.map((role) => (
 								<View key={role.id}>
 									<View style={composeStyles(splitRowStyle)}>
 										<Text>{role.position}</Text>
-										<Text style={composeStyles(alignRightStyle)}>{role.period}</Text>
+										<Text style={composeStyles(alignEndStyle)}>{role.period}</Text>
 									</View>
 									<RichText>{role.description}</RichText>
 								</View>
@@ -414,18 +507,12 @@ const ExperienceSection = ({
 	);
 };
 
-const EducationSection = ({
-	sectionId = "education",
-	sectionData,
-}: {
-	sectionId?: string;
-	sectionData?: ItemSection<EducationItem>;
-} = {}) => {
+const EducationSection = ({ sectionId = "education", sectionData }: ItemSectionProps<EducationItem> = {}) => {
 	const data = useRender();
 	const education = sectionData ?? data.sections.education;
 	const items = getVisibleItems(education, "education");
 	const splitRowStyle = useSectionSplitRowStyle();
-	const alignRightStyle = useTemplateStyle("alignRight");
+	const alignEndStyle = useTemplateStyle("alignEnd");
 	const inlineItemHeader = useTemplateFeature("inlineItemHeader");
 
 	if (items.length === 0) return null;
@@ -457,7 +544,7 @@ const EducationSection = ({
 									) : null
 								}
 								middle={<ItemTitle website={item.website}>{item.school}</ItemTitle>}
-								trailing={<Text style={composeStyles(alignRightStyle)}>{item.period}</Text>}
+								trailing={<Text style={composeStyles(alignEndStyle)}>{item.period}</Text>}
 							/>
 							{gradeAndLocation && <Text>{gradeAndLocation}</Text>}
 						</>
@@ -468,7 +555,7 @@ const EducationSection = ({
 							<View style={composeStyles(splitRowStyle)}>
 								<ItemTitle website={item.website}>{item.school}</ItemTitle>
 								{hasSplitRowText(headerDegreeAndGrade) && (
-									<Text style={composeStyles(alignRightStyle)}>{headerDegreeAndGrade}</Text>
+									<Text style={composeStyles(alignEndStyle)}>{headerDegreeAndGrade}</Text>
 								)}
 							</View>
 
@@ -476,7 +563,7 @@ const EducationSection = ({
 								<View style={composeStyles(splitRowStyle)}>
 									{hasArea && <Text>{item.area}</Text>}
 									{hasSplitRowText(headerLocationAndPeriod) && (
-										<Text style={composeStyles(alignRightStyle)}>{headerLocationAndPeriod}</Text>
+										<Text style={composeStyles(alignEndStyle)}>{headerLocationAndPeriod}</Text>
 									)}
 								</View>
 							)}
@@ -498,18 +585,12 @@ const EducationSection = ({
 	);
 };
 
-const ProjectsSection = ({
-	sectionId = "projects",
-	sectionData,
-}: {
-	sectionId?: string;
-	sectionData?: ItemSection<ProjectItem>;
-} = {}) => {
+const ProjectsSection = ({ sectionId = "projects", sectionData }: ItemSectionProps<ProjectItem> = {}) => {
 	const data = useRender();
 	const projects = sectionData ?? data.sections.projects;
 	const items = getVisibleItems(projects, "projects");
 	const splitRowStyle = useSectionSplitRowStyle();
-	const alignRightStyle = useTemplateStyle("alignRight");
+	const alignEndStyle = useTemplateStyle("alignEnd");
 
 	if (items.length === 0) return null;
 
@@ -521,7 +602,7 @@ const ProjectsSection = ({
 						<SectionItemHeader>
 							<View style={composeStyles(splitRowStyle)}>
 								<ItemTitle website={item.website}>{item.name}</ItemTitle>
-								<Text style={composeStyles(alignRightStyle)}>{item.period}</Text>
+								<Text style={composeStyles(alignEndStyle)}>{item.period}</Text>
 							</View>
 						</SectionItemHeader>
 
@@ -535,13 +616,7 @@ const ProjectsSection = ({
 	);
 };
 
-const SkillsSection = ({
-	sectionId = "skills",
-	sectionData,
-}: {
-	sectionId?: string;
-	sectionData?: ItemSection<SkillItem>;
-} = {}) => {
+const SkillsSection = ({ sectionId = "skills", sectionData }: ItemSectionProps<SkillItem> = {}) => {
 	const data = useRender();
 	const skills = sectionData ?? data.sections.skills;
 	const items = getVisibleItems(skills, "skills");
@@ -575,13 +650,7 @@ const SkillsSection = ({
 	);
 };
 
-const LanguagesSection = ({
-	sectionId = "languages",
-	sectionData,
-}: {
-	sectionId?: string;
-	sectionData?: ItemSection<LanguageItem>;
-} = {}) => {
+const LanguagesSection = ({ sectionId = "languages", sectionData }: ItemSectionProps<LanguageItem> = {}) => {
 	const data = useRender();
 	const languages = sectionData ?? data.sections.languages;
 	const items = getVisibleItems(languages, "languages");
@@ -605,13 +674,7 @@ const LanguagesSection = ({
 	);
 };
 
-const InterestsSection = ({
-	sectionId = "interests",
-	sectionData,
-}: {
-	sectionId?: string;
-	sectionData?: ItemSection<InterestItem>;
-} = {}) => {
+const InterestsSection = ({ sectionId = "interests", sectionData }: ItemSectionProps<InterestItem> = {}) => {
 	const data = useRender();
 	const interests = sectionData ?? data.sections.interests;
 	const items = getVisibleItems(interests, "interests");
@@ -639,18 +702,12 @@ const InterestsSection = ({
 	);
 };
 
-const AwardsSection = ({
-	sectionId = "awards",
-	sectionData,
-}: {
-	sectionId?: string;
-	sectionData?: ItemSection<AwardItem>;
-} = {}) => {
+const AwardsSection = ({ sectionId = "awards", sectionData }: ItemSectionProps<AwardItem> = {}) => {
 	const data = useRender();
 	const awards = sectionData ?? data.sections.awards;
 	const items = getVisibleItems(awards, "awards");
 	const splitRowStyle = useTemplateStyle("splitRow");
-	const alignRightStyle = useTemplateStyle("alignRight");
+	const alignEndStyle = useTemplateStyle("alignEnd");
 
 	if (items.length === 0) return null;
 
@@ -662,7 +719,7 @@ const AwardsSection = ({
 						<SectionItemHeader>
 							<View style={composeStyles(splitRowStyle, awardTitleDateRowStyle)}>
 								<ItemTitle website={item.website}>{item.title}</ItemTitle>
-								<Text style={composeStyles(alignRightStyle)}>{item.date}</Text>
+								<Text style={composeStyles(alignEndStyle)}>{item.date}</Text>
 							</View>
 							<Text>{item.awarder}</Text>
 						</SectionItemHeader>
@@ -679,15 +736,12 @@ const AwardsSection = ({
 const CertificationsSection = ({
 	sectionId = "certifications",
 	sectionData,
-}: {
-	sectionId?: string;
-	sectionData?: ItemSection<CertificationItem>;
-} = {}) => {
+}: ItemSectionProps<CertificationItem> = {}) => {
 	const data = useRender();
 	const certifications = sectionData ?? data.sections.certifications;
 	const items = getVisibleItems(certifications, "certifications");
 	const splitRowStyle = useSectionSplitRowStyle();
-	const alignRightStyle = useTemplateStyle("alignRight");
+	const alignEndStyle = useTemplateStyle("alignEnd");
 
 	if (items.length === 0) return null;
 
@@ -699,7 +753,7 @@ const CertificationsSection = ({
 						<SectionItemHeader>
 							<View style={composeStyles(splitRowStyle)}>
 								<ItemTitle website={item.website}>{item.title}</ItemTitle>
-								<Text style={composeStyles(alignRightStyle)}>{item.date}</Text>
+								<Text style={composeStyles(alignEndStyle)}>{item.date}</Text>
 							</View>
 							<Text>{item.issuer}</Text>
 						</SectionItemHeader>
@@ -714,18 +768,12 @@ const CertificationsSection = ({
 	);
 };
 
-const PublicationsSection = ({
-	sectionId = "publications",
-	sectionData,
-}: {
-	sectionId?: string;
-	sectionData?: ItemSection<PublicationItem>;
-} = {}) => {
+const PublicationsSection = ({ sectionId = "publications", sectionData }: ItemSectionProps<PublicationItem> = {}) => {
 	const data = useRender();
 	const publications = sectionData ?? data.sections.publications;
 	const items = getVisibleItems(publications, "publications");
 	const splitRowStyle = useSectionSplitRowStyle();
-	const alignRightStyle = useTemplateStyle("alignRight");
+	const alignEndStyle = useTemplateStyle("alignEnd");
 
 	if (items.length === 0) return null;
 
@@ -737,7 +785,7 @@ const PublicationsSection = ({
 						<SectionItemHeader>
 							<View style={composeStyles(splitRowStyle)}>
 								<ItemTitle website={item.website}>{item.title}</ItemTitle>
-								<Text style={composeStyles(alignRightStyle)}>{item.date}</Text>
+								<Text style={composeStyles(alignEndStyle)}>{item.date}</Text>
 							</View>
 
 							<Text>{item.publisher}</Text>
@@ -753,18 +801,12 @@ const PublicationsSection = ({
 	);
 };
 
-const VolunteerSection = ({
-	sectionId = "volunteer",
-	sectionData,
-}: {
-	sectionId?: string;
-	sectionData?: ItemSection<VolunteerItem>;
-} = {}) => {
+const VolunteerSection = ({ sectionId = "volunteer", sectionData }: ItemSectionProps<VolunteerItem> = {}) => {
 	const data = useRender();
 	const volunteer = sectionData ?? data.sections.volunteer;
 	const items = getVisibleItems(volunteer, "volunteer");
 	const splitRowStyle = useSectionSplitRowStyle();
-	const alignRightStyle = useTemplateStyle("alignRight");
+	const alignEndStyle = useTemplateStyle("alignEnd");
 	const inlineItemHeader = useTemplateFeature("inlineItemHeader");
 
 	if (items.length === 0) return null;
@@ -780,15 +822,13 @@ const VolunteerSection = ({
 									<InlineItemHeader
 										leading={hasSplitRowText(item.location) ? <Text>{item.location}</Text> : null}
 										middle={<ItemTitle website={item.website}>{item.organization}</ItemTitle>}
-										trailing={<Text style={composeStyles(alignRightStyle)}>{item.period}</Text>}
+										trailing={<Text style={composeStyles(alignEndStyle)}>{item.period}</Text>}
 									/>
 								) : (
 									<>
 										<View style={composeStyles(splitRowStyle)}>
 											<ItemTitle website={item.website}>{item.organization}</ItemTitle>
-											{hasSplitRowText(item.period) && (
-												<Text style={composeStyles(alignRightStyle)}>{item.period}</Text>
-											)}
+											{hasSplitRowText(item.period) && <Text style={composeStyles(alignEndStyle)}>{item.period}</Text>}
 										</View>
 
 										<Text>{item.location}</Text>
@@ -806,13 +846,7 @@ const VolunteerSection = ({
 	);
 };
 
-const ReferencesSection = ({
-	sectionId = "references",
-	sectionData,
-}: {
-	sectionId?: string;
-	sectionData?: ItemSection<ReferenceItem>;
-} = {}) => {
+const ReferencesSection = ({ sectionId = "references", sectionData }: ItemSectionProps<ReferenceItem> = {}) => {
 	const data = useRender();
 	const references = sectionData ?? data.sections.references;
 	const items = getVisibleItems(references, "references");
@@ -839,7 +873,7 @@ const ReferencesSection = ({
 	);
 };
 
-const CoverLetterSection = ({ section }: { section: CustomItemSection<CoverLetterItem> }) => {
+const CoverLetterSection = ({ section }: CoverLetterSectionProps) => {
 	const items = getVisibleItems(section);
 
 	if (items.length === 0) return null;
@@ -858,7 +892,7 @@ const CoverLetterSection = ({ section }: { section: CustomItemSection<CoverLette
 	);
 };
 
-const CustomSection = ({ sectionId, showHeading = true }: { sectionId: string; showHeading?: boolean }) => {
+const CustomSection = ({ sectionId, showHeading = true }: CustomSectionProps) => {
 	const data = useRender();
 	const customSection = data.customSections.find((section) => section.id === sectionId);
 
@@ -911,38 +945,32 @@ const CustomSection = ({ sectionId, showHeading = true }: { sectionId: string; s
 		.exhaustive();
 };
 
-export const Section = ({
-	section,
-	placement,
-	showHeading = true,
-}: {
-	section: string;
-	placement: TemplatePlacement;
-	showHeading?: boolean;
-}) => {
+export const Section = ({ section, placement, showHeading = true }: SectionProps) => {
 	const data = useRender();
 
 	if (!isSectionVisible(section, data)) return null;
 
 	return (
 		<TemplatePlacementProvider placement={placement}>
-			{match(section)
-				.with("summary", () => <SummarySection showHeading={showHeading} />)
-				.with("profiles", () => <ProfileSection />)
-				.with("experience", () => <ExperienceSection />)
-				.with("education", () => <EducationSection />)
-				.with("projects", () => <ProjectsSection />)
-				.with("skills", () => <SkillsSection />)
-				.with("languages", () => <LanguagesSection />)
-				.with("interests", () => <InterestsSection />)
-				.with("awards", () => <AwardsSection />)
-				.with("certifications", () => <CertificationsSection />)
-				.with("publications", () => <PublicationsSection />)
-				.with("volunteer", () => <VolunteerSection />)
-				.with("references", () => <ReferencesSection />)
-				.otherwise(() => (
-					<CustomSection sectionId={section} showHeading={showHeading} />
-				))}
+			<SectionStyleProvider context={getSectionStyleRuleContext(data, section)}>
+				{match(section)
+					.with("summary", () => <SummarySection showHeading={showHeading} />)
+					.with("profiles", () => <ProfileSection />)
+					.with("experience", () => <ExperienceSection />)
+					.with("education", () => <EducationSection />)
+					.with("projects", () => <ProjectsSection />)
+					.with("skills", () => <SkillsSection />)
+					.with("languages", () => <LanguagesSection />)
+					.with("interests", () => <InterestsSection />)
+					.with("awards", () => <AwardsSection />)
+					.with("certifications", () => <CertificationsSection />)
+					.with("publications", () => <PublicationsSection />)
+					.with("volunteer", () => <VolunteerSection />)
+					.with("references", () => <ReferencesSection />)
+					.otherwise(() => (
+						<CustomSection sectionId={section} showHeading={showHeading} />
+					))}
+			</SectionStyleProvider>
 		</TemplatePlacementProvider>
 	);
 };

@@ -8,7 +8,7 @@ msgstr ""
 "Language: kn\n"
 "Project-Id-Version: reactive-resume\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-21 07:54\n"
+"PO-Revision-Date: 2026-06-01 13:32\n"
 "Last-Translator: \n"
 "Language-Team: Kannada\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -373,6 +373,10 @@ msgstr "ಆ್ಯಪ್"
 msgid "Application Statistics"
 msgstr "ಅಪ್ಲಿಕೇಶನ್ ಅಂಕಿಅಂಶಗಳು"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "Applied Rules"
+msgstr "ಅನ್ವಯವಾಗುವ ನಿಯಮಗಳು"
+
 #: src/libs/locale.ts
 msgid "Arabic"
 msgstr "ಅರೇಬಿಕ್"
@@ -650,6 +654,7 @@ msgid "Choose a model and resume draft."
 msgstr "ಮಾದರಿ ಮತ್ತು ಪುನರಾರಂಭದ ಡ್ರಾಫ್ಟ್ ಅನ್ನು ಆರಿಸಿ."
 
 #. Preset or custom shade refer to the color picker
+#. Preset or custom shade refer to the color picker
 #: src/components/input/rich-input.tsx
 msgid "Choose a preset or custom shade."
 msgstr "ಪ್ರೀಸೆಟ್ ಅಥವಾ ಕಸ್ಟಮ್ ಛಾಯೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ."
@@ -666,10 +671,15 @@ msgstr "ಸೈಡ್‌ಬಾರ್‌ನಿಂದ ಅಸ್ತಿತ್ವದ�
 msgid "Circle"
 msgstr "ವೃತ್ತ"
 
+#. Clear the highlight color
 #. Clear the text color
 #: src/components/input/rich-input.tsx
 msgid "Clear"
 msgstr "ತೆರವುಗೊಳಿಸಿ"
+
+#: src/components/ui/combobox.tsx
+msgid "Clear selection"
+msgstr "ಆಯ್ಕೆಯನ್ನು ತೆರವುಗೊಳಿಸಿ"
 
 #: src/dialogs/resume/import.tsx
 msgid "Click here to select a file to import"
@@ -952,6 +962,10 @@ msgstr "ಕಸ್ಟಮ್ OAuth"
 #: src/libs/resume/section.tsx
 msgid "Custom Sections"
 msgstr "ಕಸ್ಟಮ್ ವಿಭಾಗಗಳು"
+
+#: src/libs/resume/section.tsx
+msgid "Custom Styles"
+msgstr "ಕಸ್ಟಮ್ ಶೈಲಿಗಳು"
 
 #: src/libs/locale.ts
 msgid "Czech"
@@ -1737,8 +1751,12 @@ msgid "Hide"
 msgstr "ಮರೆಮಾಡಿ"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-msgid "Hide all icons on the resume"
-msgstr "ರೆಸ್ಯೂಮ್‌ನಲ್ಲಿನ ಎಲ್ಲಾ ಐಕಾನ್‌ಗಳನ್ನು ಮರೆಮಾಡಿ"
+msgid "Hide Icons"
+msgstr "ಐಕಾನ್‌ಗಳನ್ನು ಮರೆಮಾಡಿ"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgid "Hide Link Underline"
+msgstr "ಲಿಂಕ್ ಅಂಡರ್‌ಲೈನ್ ಅನ್ನು ಮರೆಮಾಡಿ"
 
 #. Accessible label for button that hides password in registration form
 #. Accessible label for button that hides password in reset-password form
@@ -1758,6 +1776,10 @@ msgstr "ರೆಸ್ಯೂಮ್‌ನಲ್ಲಿನ ಎಲ್ಲಾ ಐಕಾ�
 msgid "Hide password"
 msgstr "ಪಾಸ್‌ವರ್ಡ್ ಮರೆಮಾಡಿ"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgid "Hide Section Icons"
+msgstr "ವಿಭಾಗ ಐಕಾನ್‌ಗಳನ್ನು ಮರೆಮಾಡಿ"
+
 #. Impact severity label in resume analysis suggestion card
 #: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
 msgid "High"
@@ -1766,6 +1788,10 @@ msgstr "ಹೆಚ್ಚು"
 #: src/components/input/rich-input.tsx
 msgid "Highlight"
 msgstr "ಹೈಲೈಟ್ ಮಾಡಿ"
+
+#: src/components/input/rich-input.tsx
+msgid "Highlight Color"
+msgstr "ಬಣ್ಣವನ್ನು ಹೈಲೈಟ್ ಮಾಡಿ"
 
 #: src/libs/locale.ts
 msgid "Hindi"
@@ -2251,6 +2277,10 @@ msgstr "ಇನ್ನೂ ಯಾವುದೇ ಪಾಸ್‌ಕೀಗಳು ನೋ
 msgid "No results found."
 msgstr "ಯಾವುದೇ ಫಲಿತಾಂಶಗಳು ಕಂಡುಬರಲಿಲ್ಲ."
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "No style rules yet."
+msgstr "ಇನ್ನೂ ಯಾವುದೇ ಶೈಲಿಯ ನಿಯಮಗಳಿಲ್ಲ."
+
 #: src/features/settings/integrations/components/ai-section.tsx
 msgid "No tested provider"
 msgstr "ಪರೀಕ್ಷಿಸದ ಪೂರೈಕೆದಾರರು ಇಲ್ಲ."
@@ -2718,6 +2748,10 @@ msgstr "ಮರುಹೊಂದಿಸಿ"
 msgid "Reset Password"
 msgstr "ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ಮರುಹೊಂದಿಸಿ"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "Reset Style"
+msgstr "ಶೈಲಿಯನ್ನು ಮರುಹೊಂದಿಸಿ"
+
 #: src/features/auth/pages/reset-password.tsx
 msgid "Reset your password"
 msgstr "ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ಮರುಹೊಂದಿಸಿ"
@@ -2793,6 +2827,14 @@ msgstr "ರೊಮೇನಿಯನ್"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Rotation"
 msgstr "ಭ್ರಮನ"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "rule"
+msgstr "ನಿಯಮ"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "rules"
+msgstr "ನಿಯಮಗಳು"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
 msgid "Run your first analysis to get a scorecard, strengths, and prioritized suggestions."
@@ -3711,6 +3753,10 @@ msgstr "ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ನವೀ
 #: src/dialogs/resume/index.tsx
 msgid "Updating your resume..."
 msgstr "ನಿಮ್ಮ ರೆಸ್ಯೂಮ್ ನವೀಕರಿಸಲಾಗುತ್ತಿದೆ..."
+
+#: src/routes/agent/$threadId.tsx
+msgid "Upload attachments"
+msgstr "ಲಗತ್ತುಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Upload picture"

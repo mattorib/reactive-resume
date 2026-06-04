@@ -41,6 +41,7 @@ export const sampleResumeData: ResumeData = {
 	},
 	summary: {
 		title: "",
+		icon: "article",
 		columns: 1,
 		hidden: false,
 		content:
@@ -49,6 +50,7 @@ export const sampleResumeData: ResumeData = {
 	sections: {
 		profiles: {
 			title: "",
+			icon: "messenger-logo",
 			columns: 1,
 			hidden: false,
 			items: [
@@ -82,6 +84,7 @@ export const sampleResumeData: ResumeData = {
 		},
 		experience: {
 			title: "",
+			icon: "briefcase",
 			columns: 1,
 			hidden: false,
 			items: [
@@ -105,6 +108,7 @@ export const sampleResumeData: ResumeData = {
 		},
 		education: {
 			title: "",
+			icon: "graduation-cap",
 			columns: 1,
 			hidden: false,
 			items: [
@@ -129,6 +133,7 @@ export const sampleResumeData: ResumeData = {
 		},
 		projects: {
 			title: "",
+			icon: "code-simple",
 			columns: 1,
 			hidden: false,
 			items: [
@@ -175,6 +180,7 @@ export const sampleResumeData: ResumeData = {
 		},
 		skills: {
 			title: "",
+			icon: "compass-tool",
 			columns: 1,
 			hidden: false,
 			items: [
@@ -242,6 +248,7 @@ export const sampleResumeData: ResumeData = {
 		},
 		languages: {
 			title: "",
+			icon: "translate",
 			columns: 1,
 			hidden: false,
 			items: [
@@ -263,6 +270,7 @@ export const sampleResumeData: ResumeData = {
 		},
 		interests: {
 			title: "",
+			icon: "football",
 			columns: 1,
 			hidden: false,
 			items: [
@@ -302,6 +310,7 @@ export const sampleResumeData: ResumeData = {
 		},
 		awards: {
 			title: "",
+			icon: "trophy",
 			columns: 1,
 			hidden: false,
 			items: [
@@ -337,6 +346,7 @@ export const sampleResumeData: ResumeData = {
 		},
 		certifications: {
 			title: "",
+			icon: "certificate",
 			columns: 1,
 			hidden: false,
 			items: [
@@ -370,6 +380,7 @@ export const sampleResumeData: ResumeData = {
 		},
 		publications: {
 			title: "",
+			icon: "books",
 			columns: 1,
 			hidden: false,
 			items: [
@@ -405,6 +416,7 @@ export const sampleResumeData: ResumeData = {
 		},
 		volunteer: {
 			title: "",
+			icon: "hand-heart",
 			columns: 2,
 			hidden: false,
 			items: [
@@ -440,6 +452,7 @@ export const sampleResumeData: ResumeData = {
 		},
 		references: {
 			title: "",
+			icon: "phone",
 			columns: 1,
 			hidden: false,
 			items: [
@@ -462,6 +475,7 @@ export const sampleResumeData: ResumeData = {
 	customSections: [
 		{
 			title: "",
+			icon: "briefcase",
 			columns: 1,
 			hidden: false,
 			id: "019becaf-0b87-769d-98a6-46ccf558c0e8",
@@ -503,6 +517,7 @@ export const sampleResumeData: ResumeData = {
 		},
 		{
 			title: "Cover Letter",
+			icon: "envelope-simple",
 			columns: 1,
 			hidden: false,
 			id: "019bef5b-0b3d-7e2a-8a7c-12d9e23a4f6b",
@@ -553,7 +568,9 @@ export const sampleResumeData: ResumeData = {
 			marginY: 16,
 			format: "a4",
 			locale: "en-US",
+			hideLinkUnderline: false,
 			hideIcons: false,
+			hideSectionIcons: false,
 		},
 		design: {
 			level: {
@@ -581,5 +598,6 @@ export const sampleResumeData: ResumeData = {
 			},
 		},
 		notes: "",
+		styleRules: [],
 	},
 };

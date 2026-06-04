@@ -8,7 +8,7 @@ msgstr ""
 "Language: am\n"
 "Project-Id-Version: reactive-resume\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-21 07:54\n"
+"PO-Revision-Date: 2026-06-01 13:32\n"
 "Last-Translator: \n"
 "Language-Team: Amharic\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -373,6 +373,10 @@ msgstr "መተግበሪያ"
 msgid "Application Statistics"
 msgstr "የመተግበሪያ ስታቲስቲክስ"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "Applied Rules"
+msgstr "የተተገበሩ ህጎች"
+
 #: src/libs/locale.ts
 msgid "Arabic"
 msgstr "ዓረብኛ"
@@ -650,6 +654,7 @@ msgid "Choose a model and resume draft."
 msgstr "ሞዴል ይምረጡ እና የሪዚሜ ረቂቅ ይምረጡ።"
 
 #. Preset or custom shade refer to the color picker
+#. Preset or custom shade refer to the color picker
 #: src/components/input/rich-input.tsx
 msgid "Choose a preset or custom shade."
 msgstr "ቀድሞ የተዘጋጀ ወይም ብጁ ጥላ ይምረጡ።"
@@ -666,10 +671,15 @@ msgstr "ከጎን አሞሌው ላይ አንድ ነባር ውይይት ይምረ
 msgid "Circle"
 msgstr "ክብ"
 
+#. Clear the highlight color
 #. Clear the text color
 #: src/components/input/rich-input.tsx
 msgid "Clear"
 msgstr "አጽዳ"
+
+#: src/components/ui/combobox.tsx
+msgid "Clear selection"
+msgstr "ምርጫን አጽዳ"
 
 #: src/dialogs/resume/import.tsx
 msgid "Click here to select a file to import"
@@ -952,6 +962,10 @@ msgstr "ብጁ OAuth"
 #: src/libs/resume/section.tsx
 msgid "Custom Sections"
 msgstr "ብጁ ክፍሎች"
+
+#: src/libs/resume/section.tsx
+msgid "Custom Styles"
+msgstr "ብጁ ቅጦች"
 
 #: src/libs/locale.ts
 msgid "Czech"
@@ -1737,8 +1751,12 @@ msgid "Hide"
 msgstr "አሳይ"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-msgid "Hide all icons on the resume"
-msgstr "በየታሪክ ማቅረቢያው ላይ ያሉ ሁሉንም አዶዎች ደብቅ"
+msgid "Hide Icons"
+msgstr "አዶዎችን ደብቅ"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgid "Hide Link Underline"
+msgstr "የአገናኝ መስመሩን ደብቅ"
 
 #. Accessible label for button that hides password in registration form
 #. Accessible label for button that hides password in reset-password form
@@ -1758,6 +1776,10 @@ msgstr "በየታሪክ ማቅረቢያው ላይ ያሉ ሁሉንም አዶዎ�
 msgid "Hide password"
 msgstr "የይለፍ ቃል ደብቅ"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgid "Hide Section Icons"
+msgstr "የክፍል አዶዎችን ደብቅ"
+
 #. Impact severity label in resume analysis suggestion card
 #: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
 msgid "High"
@@ -1766,6 +1788,10 @@ msgstr "ከፍተኛ"
 #: src/components/input/rich-input.tsx
 msgid "Highlight"
 msgstr "አብራጭ"
+
+#: src/components/input/rich-input.tsx
+msgid "Highlight Color"
+msgstr "የድምቀት ቀለም"
 
 #: src/libs/locale.ts
 msgid "Hindi"
@@ -2251,6 +2277,10 @@ msgstr "እስካሁን ምንም ፓስኪዎች አልተመዘገቡም።"
 msgid "No results found."
 msgstr "ምንም ውጤት አልተገኘም።"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "No style rules yet."
+msgstr "እስካሁን የቅጥ ደንቦች የሉም።"
+
 #: src/features/settings/integrations/components/ai-section.tsx
 msgid "No tested provider"
 msgstr "የተፈተነ አቅራቢ የለም"
@@ -2718,6 +2748,10 @@ msgstr "ዳግም ለመጀመር"
 msgid "Reset Password"
 msgstr "የይለፍ ቃል ዳግም አስጀምር"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "Reset Style"
+msgstr "ቅጥን ዳግም አስጀምር"
+
 #: src/features/auth/pages/reset-password.tsx
 msgid "Reset your password"
 msgstr "የይለፍ ቃልዎን ዳግም ያስጀምሩ"
@@ -2793,6 +2827,14 @@ msgstr "ሮማኒያንኛ"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Rotation"
 msgstr "ማሽከርከር"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "rule"
+msgstr "ደንብ"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "rules"
+msgstr "ደንቦች"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
 msgid "Run your first analysis to get a scorecard, strengths, and prioritized suggestions."
@@ -3711,6 +3753,10 @@ msgstr "የይለፍ ቃልዎን በመዘመን ላይ…"
 #: src/dialogs/resume/index.tsx
 msgid "Updating your resume..."
 msgstr "የየታሪክዎን በመዘመን ላይ…"
+
+#: src/routes/agent/$threadId.tsx
+msgid "Upload attachments"
+msgstr "አባሪዎችን ስቀል"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Upload picture"

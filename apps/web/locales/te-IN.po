@@ -8,7 +8,7 @@ msgstr ""
 "Language: te\n"
 "Project-Id-Version: reactive-resume\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-21 07:54\n"
+"PO-Revision-Date: 2026-06-01 13:32\n"
 "Last-Translator: \n"
 "Language-Team: Telugu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -373,6 +373,10 @@ msgstr "యాప్"
 msgid "Application Statistics"
 msgstr "యాప్ గణాంకాలు"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "Applied Rules"
+msgstr "వర్తింపజేసిన నియమాలు"
+
 #: src/libs/locale.ts
 msgid "Arabic"
 msgstr "అరబిక్"
@@ -650,6 +654,7 @@ msgid "Choose a model and resume draft."
 msgstr "ఒక నమూనా మరియు రెజ్యూమె ముసాయిదాను ఎంచుకోండి."
 
 #. Preset or custom shade refer to the color picker
+#. Preset or custom shade refer to the color picker
 #: src/components/input/rich-input.tsx
 msgid "Choose a preset or custom shade."
 msgstr "ప్రీసెట్‌ను లేదా కస్టమ్ షేడ్‌ను ఎంచుకోండి."
@@ -666,10 +671,15 @@ msgstr "సైడ్‌బార్ నుండి ఇప్పటికే ఉ
 msgid "Circle"
 msgstr "వృత్తం"
 
+#. Clear the highlight color
 #. Clear the text color
 #: src/components/input/rich-input.tsx
 msgid "Clear"
 msgstr "తొలగించు"
+
+#: src/components/ui/combobox.tsx
+msgid "Clear selection"
+msgstr "స్పష్టమైన ఎంపిక"
 
 #: src/dialogs/resume/import.tsx
 msgid "Click here to select a file to import"
@@ -952,6 +962,10 @@ msgstr "కస్టమ్ OAuth"
 #: src/libs/resume/section.tsx
 msgid "Custom Sections"
 msgstr "కస్టమ్ విభాగాలు"
+
+#: src/libs/resume/section.tsx
+msgid "Custom Styles"
+msgstr "కస్టమ్ స్టైల్స్"
 
 #: src/libs/locale.ts
 msgid "Czech"
@@ -1737,8 +1751,12 @@ msgid "Hide"
 msgstr "హైడ్"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-msgid "Hide all icons on the resume"
-msgstr "జీవన చరిత్రపై అన్ని చిహ్నాలను దాచండి"
+msgid "Hide Icons"
+msgstr "చిహ్నాలను దాచండి"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgid "Hide Link Underline"
+msgstr "లింక్ అండర్‌లైన్‌ను దాచండి"
 
 #. Accessible label for button that hides password in registration form
 #. Accessible label for button that hides password in reset-password form
@@ -1758,6 +1776,10 @@ msgstr "జీవన చరిత్రపై అన్ని చిహ్నా
 msgid "Hide password"
 msgstr "పాస్‌వర్డ్ దాచు"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgid "Hide Section Icons"
+msgstr "విభాగం చిహ్నాలను దాచండి"
+
 #. Impact severity label in resume analysis suggestion card
 #: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
 msgid "High"
@@ -1766,6 +1788,10 @@ msgstr "అధిక"
 #: src/components/input/rich-input.tsx
 msgid "Highlight"
 msgstr "హైలైట్"
+
+#: src/components/input/rich-input.tsx
+msgid "Highlight Color"
+msgstr "హైలైట్ రంగు"
 
 #: src/libs/locale.ts
 msgid "Hindi"
@@ -2251,6 +2277,10 @@ msgstr "ఇంకా పాస్‌కీలు నమోదు కాలేద
 msgid "No results found."
 msgstr "ఏ ఫలితాలు లభించలేదు."
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "No style rules yet."
+msgstr "ఇంకా శైలి నియమాలు ఏవీ లేవు."
+
 #: src/features/settings/integrations/components/ai-section.tsx
 msgid "No tested provider"
 msgstr "పరీక్షించిన ప్రొవైడర్ లేదు"
@@ -2718,6 +2748,10 @@ msgstr "రీసెట్ చేయండి"
 msgid "Reset Password"
 msgstr "పాస్‌వర్డ్ రీసెట్ చేయండి"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "Reset Style"
+msgstr "శైలిని రీసెట్ చేయండి"
+
 #: src/features/auth/pages/reset-password.tsx
 msgid "Reset your password"
 msgstr "మీ పాస్‌వర్డ్‌ను రీసెట్ చేయండి"
@@ -2793,6 +2827,14 @@ msgstr "రోమేనియన్"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Rotation"
 msgstr "రోటేషన్"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "rule"
+msgstr "నియమం"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "rules"
+msgstr "నియమాలు"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
 msgid "Run your first analysis to get a scorecard, strengths, and prioritized suggestions."
@@ -3711,6 +3753,10 @@ msgstr "మీ పాస్‌వర్డ్‌ను నవీకరిస్�
 #: src/dialogs/resume/index.tsx
 msgid "Updating your resume..."
 msgstr "మీ రిజ్యూమ్‌ను నవీకరిస్తోంది..."
+
+#: src/routes/agent/$threadId.tsx
+msgid "Upload attachments"
+msgstr "జోడింపులను అప్‌లోడ్ చేయండి"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Upload picture"

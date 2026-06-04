@@ -8,7 +8,7 @@ msgstr ""
 "Language: ml\n"
 "Project-Id-Version: reactive-resume\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-21 07:54\n"
+"PO-Revision-Date: 2026-06-01 13:32\n"
 "Last-Translator: \n"
 "Language-Team: Malayalam\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -373,6 +373,10 @@ msgstr "ആപ്പ്"
 msgid "Application Statistics"
 msgstr "ആപ്ലിക്കേഷൻ സ്റ്റാറ്റിസ്റ്റിക്സ്"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "Applied Rules"
+msgstr "ബാധകമായ നിയമങ്ങൾ"
+
 #: src/libs/locale.ts
 msgid "Arabic"
 msgstr "അറബിക്"
@@ -650,6 +654,7 @@ msgid "Choose a model and resume draft."
 msgstr "ഒരു മോഡൽ തിരഞ്ഞെടുത്ത് ഡ്രാഫ്റ്റ് റെസ്യൂമെ ചെയ്യുക."
 
 #. Preset or custom shade refer to the color picker
+#. Preset or custom shade refer to the color picker
 #: src/components/input/rich-input.tsx
 msgid "Choose a preset or custom shade."
 msgstr "ഒരു പ്രീസെറ്റ് അല്ലെങ്കിൽ കസ്റ്റം ഷേഡ് തിരഞ്ഞെടുക്കുക."
@@ -666,10 +671,15 @@ msgstr "സൈഡ്‌ബാറിൽ നിന്ന് നിലവിലു�
 msgid "Circle"
 msgstr "വൃത്തം"
 
+#. Clear the highlight color
 #. Clear the text color
 #: src/components/input/rich-input.tsx
 msgid "Clear"
 msgstr "വ്യക്തമാക്കുക"
+
+#: src/components/ui/combobox.tsx
+msgid "Clear selection"
+msgstr "തിരഞ്ഞെടുപ്പ് മായ്ക്കുക"
 
 #: src/dialogs/resume/import.tsx
 msgid "Click here to select a file to import"
@@ -952,6 +962,10 @@ msgstr "ഇഷ്ടാനുസൃത OAuth"
 #: src/libs/resume/section.tsx
 msgid "Custom Sections"
 msgstr "കസ്റ്റം സെക്ഷനുകൾ"
+
+#: src/libs/resume/section.tsx
+msgid "Custom Styles"
+msgstr "ഇഷ്ടാനുസൃത ശൈലികൾ"
 
 #: src/libs/locale.ts
 msgid "Czech"
@@ -1737,8 +1751,12 @@ msgid "Hide"
 msgstr "മറയ്ക്കുക"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-msgid "Hide all icons on the resume"
-msgstr "റിസ്യൂമിലെ എല്ലാ ഐക്കണുകളും മറയ്ക്കുക"
+msgid "Hide Icons"
+msgstr "ഐക്കണുകൾ മറയ്ക്കുക"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgid "Hide Link Underline"
+msgstr "ലിങ്ക് അടിവര മറയ്ക്കുക"
 
 #. Accessible label for button that hides password in registration form
 #. Accessible label for button that hides password in reset-password form
@@ -1758,6 +1776,10 @@ msgstr "റിസ്യൂമിലെ എല്ലാ ഐക്കണുകള�
 msgid "Hide password"
 msgstr "പാസ്‌വേഡ് മറയ്ക്കുക"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgid "Hide Section Icons"
+msgstr "വിഭാഗ ഐക്കണുകൾ മറയ്ക്കുക"
+
 #. Impact severity label in resume analysis suggestion card
 #: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
 msgid "High"
@@ -1766,6 +1788,10 @@ msgstr "ഉയർന്ന"
 #: src/components/input/rich-input.tsx
 msgid "Highlight"
 msgstr "ഹൈലൈറ്റ്"
+
+#: src/components/input/rich-input.tsx
+msgid "Highlight Color"
+msgstr "നിറം ഹൈലൈറ്റ് ചെയ്യുക"
 
 #: src/libs/locale.ts
 msgid "Hindi"
@@ -2251,6 +2277,10 @@ msgstr "ഇതുവരെ പാസ്‌കീകൾ രജിസ്റ്റ�
 msgid "No results found."
 msgstr "ഒരൊന്നുമാത്രം ഫലങ്ങളൊന്നും ലഭ്യമല്ല."
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "No style rules yet."
+msgstr "ഇതുവരെ സ്റ്റൈൽ നിയമങ്ങളൊന്നുമില്ല."
+
 #: src/features/settings/integrations/components/ai-section.tsx
 msgid "No tested provider"
 msgstr "പരിശോധിച്ച ദാതാവില്ല."
@@ -2718,6 +2748,10 @@ msgstr "റീസെറ്റ് ചെയ്യുക"
 msgid "Reset Password"
 msgstr "പാസ്‌വേഡ് റീസെറ്റ് ചെയ്യുക"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "Reset Style"
+msgstr "സ്റ്റൈൽ പുനഃസജ്ജമാക്കുക"
+
 #: src/features/auth/pages/reset-password.tsx
 msgid "Reset your password"
 msgstr "നിങ്ങളുടെ പാസ്‌വേഡ് റീസെറ്റ് ചെയ്യുക"
@@ -2793,6 +2827,14 @@ msgstr "റൊമാനിയൻ"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Rotation"
 msgstr "ററോട്ടേഷൻ"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "rule"
+msgstr "ഭരണം"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "rules"
+msgstr "നിയമങ്ങൾ"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
 msgid "Run your first analysis to get a scorecard, strengths, and prioritized suggestions."
@@ -3711,6 +3753,10 @@ msgstr "നിങ്ങളുടെ പാസ്‌വേഡ് അപ്‌ഡ�
 #: src/dialogs/resume/index.tsx
 msgid "Updating your resume..."
 msgstr "നിങ്ങളുടെ റിസ്യൂം അപ്‌ഡേറ്റ് ചെയ്യുന്നു..."
+
+#: src/routes/agent/$threadId.tsx
+msgid "Upload attachments"
+msgstr "അറ്റാച്ചുമെന്റുകൾ അപ്‌ലോഡ് ചെയ്യുക"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Upload picture"

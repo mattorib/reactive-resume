@@ -8,7 +8,7 @@ msgstr ""
 "Language: bg\n"
 "Project-Id-Version: reactive-resume\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-21 07:54\n"
+"PO-Revision-Date: 2026-06-01 13:31\n"
 "Last-Translator: \n"
 "Language-Team: Bulgarian\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -373,6 +373,10 @@ msgstr "Приложение"
 msgid "Application Statistics"
 msgstr "Статистика на приложението"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "Applied Rules"
+msgstr "Приложени правила"
+
 #: src/libs/locale.ts
 msgid "Arabic"
 msgstr "Арабски"
@@ -650,6 +654,7 @@ msgid "Choose a model and resume draft."
 msgstr "Изберете модел и чернова на автобиография."
 
 #. Preset or custom shade refer to the color picker
+#. Preset or custom shade refer to the color picker
 #: src/components/input/rich-input.tsx
 msgid "Choose a preset or custom shade."
 msgstr "Изберете предварително зададен или персонализиран нюанс."
@@ -666,10 +671,15 @@ msgstr "Изберете съществуващ разговор от стран
 msgid "Circle"
 msgstr "Кръг"
 
+#. Clear the highlight color
 #. Clear the text color
 #: src/components/input/rich-input.tsx
 msgid "Clear"
 msgstr "Clear"
+
+#: src/components/ui/combobox.tsx
+msgid "Clear selection"
+msgstr "Изчистване на избора"
 
 #: src/dialogs/resume/import.tsx
 msgid "Click here to select a file to import"
@@ -952,6 +962,10 @@ msgstr "Потребителски OAuth"
 #: src/libs/resume/section.tsx
 msgid "Custom Sections"
 msgstr "Потребителски раздели"
+
+#: src/libs/resume/section.tsx
+msgid "Custom Styles"
+msgstr "Персонализирани стилове"
 
 #: src/libs/locale.ts
 msgid "Czech"
@@ -1737,8 +1751,12 @@ msgid "Hide"
 msgstr "Скриване"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-msgid "Hide all icons on the resume"
-msgstr "Скриване на всички икони в автобиографията"
+msgid "Hide Icons"
+msgstr "Скриване на икони"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgid "Hide Link Underline"
+msgstr "Скриване на подчертаната връзка"
 
 #. Accessible label for button that hides password in registration form
 #. Accessible label for button that hides password in reset-password form
@@ -1758,6 +1776,10 @@ msgstr "Скриване на всички икони в автобиограф�
 msgid "Hide password"
 msgstr "Скриване на паролата"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgid "Hide Section Icons"
+msgstr "Скриване на иконите на секциите"
+
 #. Impact severity label in resume analysis suggestion card
 #: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
 msgid "High"
@@ -1766,6 +1788,10 @@ msgstr "Висока"
 #: src/components/input/rich-input.tsx
 msgid "Highlight"
 msgstr "Маркер за подчертаване"
+
+#: src/components/input/rich-input.tsx
+msgid "Highlight Color"
+msgstr "Цвят на акцента"
 
 #: src/libs/locale.ts
 msgid "Hindi"
@@ -2251,6 +2277,10 @@ msgstr "Все още няма регистрирани ключове за до
 msgid "No results found."
 msgstr "Няма намерени резултати."
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "No style rules yet."
+msgstr "Все още няма стилови правила."
+
 #: src/features/settings/integrations/components/ai-section.tsx
 msgid "No tested provider"
 msgstr "Няма тестван доставчик"
@@ -2718,6 +2748,10 @@ msgstr "Нулиране"
 msgid "Reset Password"
 msgstr "Нулиране на паролата"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "Reset Style"
+msgstr "Нулиране на стила"
+
 #: src/features/auth/pages/reset-password.tsx
 msgid "Reset your password"
 msgstr "Нулирайте паролата си"
@@ -2793,6 +2827,14 @@ msgstr "Румънски"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Rotation"
 msgstr "Завъртане"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "rule"
+msgstr "правило"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/custom-styles.tsx
+msgid "rules"
+msgstr "правила"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
 msgid "Run your first analysis to get a scorecard, strengths, and prioritized suggestions."
@@ -3711,6 +3753,10 @@ msgstr "Актуализиране на паролата ви..."
 #: src/dialogs/resume/index.tsx
 msgid "Updating your resume..."
 msgstr "Актуализиране на автобиографията ви..."
+
+#: src/routes/agent/$threadId.tsx
+msgid "Upload attachments"
+msgstr "Качване на прикачени файлове"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Upload picture"
