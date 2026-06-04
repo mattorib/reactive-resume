@@ -176,7 +176,7 @@ export const registerFonts = (typography: Typography, locale: Locale, hasCjkCont
 			for (const ch of word) {
 				if (isCjk(ch)) {
 					if (buf) {
-						chunks.push(buf);
+						chunks.push(buf, ""); // "" prevents hyphen at Latin→CJK boundary
 						buf = "";
 					}
 					chunks.push(ch, "");
@@ -184,7 +184,7 @@ export const registerFonts = (typography: Typography, locale: Locale, hasCjkCont
 					buf += ch;
 				}
 			}
-			if (buf) chunks.push(buf);
+			if (buf) chunks.push(buf); // trailing Latin run — no hyphen marker needed
 			return chunks.length ? chunks : [word];
 		}
 

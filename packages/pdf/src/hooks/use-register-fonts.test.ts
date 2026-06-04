@@ -159,8 +159,8 @@ describe("registerFonts", () => {
 		expect(hyphenationCallback?.("翠翠红红处处")).toEqual(["翠", "", "翠", "", "红", "", "红", "", "处", "", "处", ""]);
 		// Latin-only: returned as a single unbreakable chunk
 		expect(hyphenationCallback?.("Reactive")).toEqual(["Reactive"]);
-		// Mixed: Latin run kept together, each CJK char breakable
-		expect(hyphenationCallback?.("Reactive翠")).toEqual(["Reactive", "翠", ""]);
+		// Mixed: Latin run kept together, "" after Latin prevents hyphen at CJK boundary
+		expect(hyphenationCallback?.("Reactive翠")).toEqual(["Reactive", "", "翠", ""]);
 	});
 
 	it("returns typography with font weights sorted ascending", async () => {
