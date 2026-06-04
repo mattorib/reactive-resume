@@ -157,8 +157,8 @@ describe("registerFonts", () => {
 		const hyphenationCallback = registerHyphenationSpy.mock.calls.at(-1)?.[0];
 		// CJK-only: each character is individually breakable
 		expect(hyphenationCallback?.("翠翠红红处处")).toEqual(["翠", "", "翠", "", "红", "", "红", "", "处", "", "处", ""]);
-		// Latin-only: returned as a single unbreakable chunk
-		expect(hyphenationCallback?.("Reactive")).toEqual(["Reactive"]);
+		// Latin-only: single chunk + trailing "" (GLUE) so word boundary breaks without hyphen
+		expect(hyphenationCallback?.("Reactive")).toEqual(["Reactive", ""]);
 		// Mixed: Latin run kept together, "" after Latin prevents hyphen at CJK boundary
 		expect(hyphenationCallback?.("Reactive翠")).toEqual(["Reactive", "", "翠", ""]);
 	});

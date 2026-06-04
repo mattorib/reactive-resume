@@ -184,7 +184,7 @@ export const registerFonts = (typography: Typography, locale: Locale, hasCjkCont
 					buf += ch;
 				}
 			}
-			if (buf) chunks.push(buf); // trailing Latin run — no hyphen marker needed
+			if (buf) chunks.push(buf, ""); // trailing "" = GLUE in KP layout, no hyphen at break
 			return chunks.length ? chunks : [word];
 		}
 
