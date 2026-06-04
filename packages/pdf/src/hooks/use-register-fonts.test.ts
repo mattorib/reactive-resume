@@ -155,25 +155,12 @@ describe("registerFonts", () => {
 		registerFonts(typography, "en-US", true);
 
 		const hyphenationCallback = registerHyphenationSpy.mock.calls.at(-1)?.[0];
+		// CJK-only: each character is individually breakable
 		expect(hyphenationCallback?.("翠翠红红处处")).toEqual(["翠", "", "翠", "", "红", "", "红", "", "处", "", "处", ""]);
-		expect(hyphenationCallback?.("Reactive")).toEqual([
-			"R",
-			"",
-			"e",
-			"",
-			"a",
-			"",
-			"c",
-			"",
-			"t",
-			"",
-			"i",
-			"",
-			"v",
-			"",
-			"e",
-			"",
-		]);
+		// Latin-only: returned as a single unbreakable chunk
+		expect(hyphenationCallback?.("Reactive")).toEqual(["Reactive"]);
+		// Mixed: Latin run kept together, each CJK char breakable
+		expect(hyphenationCallback?.("Reactive翠")).toEqual(["Reactive", "翠", ""]);
 	});
 
 	it("returns typography with font weights sorted ascending", async () => {

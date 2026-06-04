@@ -163,7 +163,29 @@ export const registerFonts = (typography: Typography, locale: Locale, hasCjkCont
 	Font.registerHyphenationCallback((word) => {
 		if (needsCjkTextSupport) {
 			if (word === " ") return ["\u200C "];
-			return [...word].flatMap((l) => [l, ""]);
+
+			// CJK ranges: punctuation, hiragana, katakana, kanji (incl. ext A),
+			// compat ideographs, hangul, fullwidth forms, + supplementary kanji (ext B).
+			const isCjk = (ch: string) =>
+				/[\u3000-\u303F\u3040-\u30FF\u31F0-\u31FF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\uAC00-\uD7AF\uFF00-\uFFEF\u{20000}-\u{2FA1F}]/u.test(
+					ch,
+				);
+
+			const chunks: string[] = [];
+			let buf = "";
+			for (const ch of word) {
+				if (isCjk(ch)) {
+					if (buf) {
+						chunks.push(buf);
+						buf = "";
+					}
+					chunks.push(ch, "");
+				} else {
+					buf += ch;
+				}
+			}
+			if (buf) chunks.push(buf);
+			return chunks.length ? chunks : [word];
 		}
 
 		return [word];
