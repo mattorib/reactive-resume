@@ -1,8 +1,9 @@
-import type { UIMessage } from "ai";
+import { eventIterator } from "@orpc/server";
 import z from "zod";
 import { protectedProcedure } from "../../context";
+import { uiMessageSchema } from "../../dto/agent";
 import { aiRequestRateLimit } from "../../middleware/rate-limit";
-import { isAgentEnvironmentUnavailable, isUiMessage, throwUnavailable } from "./routing";
+import { mapAgentEnvironmentError } from "./routing";
 import { agentService } from "./service";
 
 export const messagesRouter = {
@@ -17,24 +18,30 @@ export const messagesRouter = {
 		.input(
 			z.object({
 				threadId: z.string(),
-				message: z.custom<UIMessage>(isUiMessage, { message: "Invalid UI message." }),
+				message: uiMessageSchema,
 				attachmentIds: z.array(z.string().trim().min(1)).max(10).optional(),
+				// The context chips: leaving one out keeps it out of what's sent.
+				context: z
+					.object({
+						document: z.boolean().optional().describe("Share the open document (on by default)."),
+						posting: z.boolean().optional().describe("Share the job posting it's for (on by default)."),
+						applicationId: z.string().trim().min(1).max(255).optional(),
+					})
+					.optional(),
 			}),
 		)
 		.use(aiRequestRateLimit)
-		.handler(async ({ context, input }) => {
-			try {
-				return await agentService.messages.send({
-					userId: context.user.id,
-					threadId: input.threadId,
-					message: input.message,
-					...(input.attachmentIds ? { attachmentIds: input.attachmentIds } : {}),
-				});
-			} catch (error) {
-				if (isAgentEnvironmentUnavailable(error)) throwUnavailable();
-				throw error;
-			}
-		}),
+		.use(mapAgentEnvironmentError)
+		.output(eventIterator(z.string()))
+		.handler(({ context, input }) =>
+			agentService.messages.send({
+				userId: context.user.id,
+				threadId: input.threadId,
+				message: input.message,
+				...(input.attachmentIds ? { attachmentIds: input.attachmentIds } : {}),
+				...(input.context ? { context: input.context } : {}),
+			}),
+		),
 
 	stop: protectedProcedure
 		.route({
@@ -47,22 +54,19 @@ export const messagesRouter = {
 		.input(
 			z.object({
 				threadId: z.string(),
-				partialMessage: z.custom<UIMessage>(isUiMessage, { message: "Invalid UI message." }).optional(),
+				// Deprecated and ignored: partial content now persists server-side via the run's
+				// abort path. Kept in the schema for one release so mid-deploy clients still parse.
+				partialMessage: uiMessageSchema.optional(),
 			}),
 		)
 		.output(z.void())
-		.handler(async ({ context, input }) => {
-			try {
-				await agentService.messages.stop({
-					userId: context.user.id,
-					threadId: input.threadId,
-					...(input.partialMessage ? { partialMessage: input.partialMessage } : {}),
-				});
-			} catch (error) {
-				if (isAgentEnvironmentUnavailable(error)) throwUnavailable();
-				throw error;
-			}
-		}),
+		.use(mapAgentEnvironmentError)
+		.handler(({ context, input }) =>
+			agentService.messages.stop({
+				userId: context.user.id,
+				threadId: input.threadId,
+			}),
+		),
 
 	resume: protectedProcedure
 		.route({
@@ -73,12 +77,34 @@ export const messagesRouter = {
 			summary: "Resume agent message stream",
 		})
 		.input(z.object({ threadId: z.string() }))
-		.handler(async ({ context, input }) => {
-			try {
-				return await agentService.messages.resume({ userId: context.user.id, threadId: input.threadId });
-			} catch (error) {
-				if (isAgentEnvironmentUnavailable(error)) throwUnavailable();
-				throw error;
-			}
-		}),
+		.use(mapAgentEnvironmentError)
+		.output(eventIterator(z.string()))
+		.handler(({ context, input }) =>
+			agentService.messages.resume({ userId: context.user.id, threadId: input.threadId }),
+		),
+
+	setEditStatus: protectedProcedure
+		.route({
+			method: "POST",
+			path: "/agent/messages/edit-status",
+			tags: ["Agent"],
+			operationId: "setAgentEditStatus",
+			summary: "Record what happened to proposed edits",
+			description:
+				"Records that proposed edits were accepted, rejected, or are pending again (after an undo), so past conversations show their outcome.",
+		})
+		.input(
+			z.object({
+				threadId: z.string(),
+				messageId: z.string(),
+				toolCallId: z.string(),
+				edits: z
+					.array(z.object({ id: z.string(), status: z.enum(["pending", "accepted", "rejected"]) }))
+					.min(1)
+					.max(50),
+			}),
+		)
+		.output(z.object({ editsProposed: z.number(), editsAccepted: z.number() }))
+		.use(mapAgentEnvironmentError)
+		.handler(({ context, input }) => agentService.messages.setEditStatus({ userId: context.user.id, ...input })),
 };

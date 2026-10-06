@@ -1,59 +1,36 @@
+import type { SendMailOptions, Transporter } from "nodemailer";
 import type { ReactElement } from "react";
-import nodemailer, { type SendMailOptions, type Transporter } from "nodemailer";
+import nodemailer from "nodemailer";
 import { render } from "react-email";
 import { env } from "@reactive-resume/env/server";
 
-type SendEmailOptions = {
-	to: string | string[];
-	subject: string;
-	text?: string;
-	html?: string;
-	react?: ReactElement;
-	from?: string;
-};
-
-const isSmtpEnabled = () => {
-	return !!env.SMTP_HOST && !!env.SMTP_USER && !!env.SMTP_PASS && !!env.SMTP_FROM;
-};
+type SendEmailOptions = { to: string; subject: string; react: ReactElement };
 
 let cachedTransport: Transporter | undefined;
 
 const getTransport = () => {
-	if (!isSmtpEnabled()) return;
-	if (cachedTransport) return cachedTransport;
+	const { SMTP_HOST: host, SMTP_USER: user, SMTP_PASS: pass, SMTP_FROM: from } = env;
+	if (!host || !user || !pass || !from) return;
 
-	cachedTransport = nodemailer.createTransport({
-		host: env.SMTP_HOST,
+	cachedTransport ??= nodemailer.createTransport({
+		host,
 		port: env.SMTP_PORT,
 		secure: env.SMTP_SECURE,
-		auth: {
-			// biome-ignore lint/style/noNonNullAssertion: guarded by isSmtpEnabled
-			user: env.SMTP_USER!,
-			// biome-ignore lint/style/noNonNullAssertion: guarded by isSmtpEnabled
-			pass: env.SMTP_PASS!,
-		},
+		auth: { user, pass },
 	});
 
 	return cachedTransport;
 };
 
-export const sendEmail = async (options: SendEmailOptions) => {
+export const sendEmail = async ({ to, subject, react }: SendEmailOptions) => {
 	const transport = getTransport();
-	const from = options.from ?? env.SMTP_FROM ?? "Reactive Resume <noreply@localhost>";
 	const payload: SendMailOptions = {
-		to: options.to,
-		from,
-		subject: options.subject,
-		text: options.text,
-		html: options.html,
+		to,
+		from: env.SMTP_FROM,
+		subject,
+		html: await render(react),
+		text: await render(react, { plainText: true }),
 	};
-
-	if (options.react) {
-		payload.html = await render(options.react);
-		payload.text = options.text ?? (await render(options.react, { plainText: true }));
-	}
-
-	if (!payload.text && !payload.html) return;
 
 	if (!transport) {
 		console.info("SMTP not configured; skipping email send.", {

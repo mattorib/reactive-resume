@@ -1,6 +1,6 @@
-import type { Style } from "@react-pdf/types";
+import type { Style } from "../../forme/style-types";
+import { View } from "#react-pdf-renderer";
 import { useRender } from "../../context";
-import { View } from "../../renderer";
 import { Heading, Text } from "./primitives";
 
 type Props = { nameStyle?: Style };

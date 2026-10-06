@@ -1,14 +1,16 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { ArrowRightIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { toast } from "sonner";
 import z from "zod";
 import { Button } from "@reactive-resume/ui/components/button";
 import { FormControl, FormItem, FormLabel, FormMessage } from "@reactive-resume/ui/components/form";
+import { Icon } from "@reactive-resume/ui/components/icon";
 import { Input } from "@reactive-resume/ui/components/input";
+import { toast } from "@reactive-resume/ui/components/toast";
+import { cn } from "@reactive-resume/utils/style";
 import { authClient } from "@/libs/auth/client";
+import { ENTER_CLASS } from "@/libs/motion";
 import { useAppForm } from "@/libs/tanstack-form";
 
 const formSchema = z.object({
@@ -22,7 +24,7 @@ export function ForgotPasswordPage() {
 		defaultValues: { email: "" },
 		validators: { onSubmit: formSchema },
 		onSubmit: async ({ value }) => {
-			const toastId = toast.loading(t`Sending password reset email...`);
+			const toastId = toast.add({ type: "loading", description: t`Sending password reset email...` });
 
 			const { error } = await authClient.requestPasswordReset({
 				email: value.email,
@@ -30,19 +32,21 @@ export function ForgotPasswordPage() {
 			});
 
 			if (error) {
-				toast.error(
-					error.message ||
+				toast.add({
+					type: "error",
+					description:
+						error.message ||
 						t({
 							comment: "Fallback toast when requesting password reset email fails without backend message",
 							message: "Failed to send password reset email. Please try again.",
 						}),
-					{ id: toastId },
-				);
+					id: toastId,
+				});
 				return;
 			}
 
 			setSubmitted(true);
-			toast.dismiss(toastId);
+			toast.close(toastId);
 		},
 	});
 
@@ -51,11 +55,11 @@ export function ForgotPasswordPage() {
 	return (
 		<>
 			<div className="space-y-1 text-center">
-				<h1 className="font-semibold text-2xl tracking-tight">
+				<h1 className="text-2xl font-semibold tracking-tight">
 					<Trans>Forgot your password?</Trans>
 				</h1>
 
-				<div className="text-muted-foreground">
+				<div className="text-ink-3">
 					<Trans>
 						Remember your password?{" "}
 						<Button
@@ -65,7 +69,7 @@ export function ForgotPasswordPage() {
 							render={
 								<Link to="/auth/login">
 									<Trans comment="Call-to-action link from forgot-password page to login page">Sign in now</Trans>{" "}
-									<ArrowRightIcon />
+									<Icon name="arrow_forward" size={16} />
 								</Link>
 							}
 						/>
@@ -92,10 +96,7 @@ export function ForgotPasswordPage() {
 									<Input
 										type="email"
 										autoComplete="email"
-										placeholder={t({
-											comment: "Example email placeholder on forgot-password form",
-											message: "john.doe@example.com",
-										})}
+										placeholder="john.doe@example.com"
 										name={field.name}
 										value={field.state.value}
 										onBlur={field.handleBlur}
@@ -118,12 +119,13 @@ export function ForgotPasswordPage() {
 
 function PostForgotPasswordScreen() {
 	return (
-		<>
+		// Replaces the form in place: fades up into the auth column, with the layout's 24px gap.
+		<div className={cn(ENTER_CLASS, "grid gap-y-6")}>
 			<div className="space-y-1 text-center">
-				<h1 className="font-semibold text-2xl tracking-tight">
+				<h1 className="text-2xl font-semibold tracking-tight">
 					<Trans>You've got mail!</Trans>
 				</h1>
-				<p className="text-muted-foreground">
+				<p className="text-ink-3">
 					<Trans>Check your email for a link to reset your password.</Trans>
 				</p>
 			</div>
@@ -136,6 +138,6 @@ function PostForgotPasswordScreen() {
 					</a>
 				}
 			/>
-		</>
+		</div>
 	);
 }
