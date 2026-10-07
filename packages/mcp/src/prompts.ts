@@ -72,6 +72,7 @@ const PATCH_REFERENCE = [
 	"| Action | Operation |",
 	"|--------|-----------|",
 	'| Change name | `{ "op": "replace", "path": "/basics/name", "value": "Jane Doe" }` |',
+	'| Set furigana (name reading) | `{ "op": "replace", "path": "/basics/furigana", "value": "やまだ たろう" }` |',
 	'| Update headline | `{ "op": "replace", "path": "/basics/headline", "value": "Senior Engineer" }` |',
 	'| Replace summary | `{ "op": "replace", "path": "/summary/content", "value": "<p>Experienced...</p>" }` |',
 	'| Add experience | `{ "op": "add", "path": "/sections/experience/items/-", "value": { ...full item } }` |',

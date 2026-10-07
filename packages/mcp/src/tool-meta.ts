@@ -330,6 +330,7 @@ const BASE_TOOL_META = {
 			"",
 			"Common path examples:",
 			"  /basics/name                          — Change the name",
+			"  /basics/furigana                      — Change the furigana (phonetic reading of the name)",
 			"  /basics/headline                      — Change the headline",
 			"  /summary/content                      — Replace summary (HTML string)",
 			"  /sections/experience/items/-           — Append a new experience item",
